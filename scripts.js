@@ -1,7 +1,14 @@
+// Cotação de moedas.
+const USD = 5.45
+const EUR = 5.92
+const GBP = 7.03
+
+
 // Obtendo os elementos do formulário.
 const form = document.querySelector("form")
 const amount = document.getElementById("amount")
 const currency = document.getElementById("currency")
+const footer = document.querySelector("main footer")
 
 // Manipulando o input amount para receber somente números.
 amount.addEventListener("input", () => {
@@ -13,6 +20,30 @@ amount.addEventListener("input", () => {
 form.onsubmit = (event) => {
     event.preventDefault()
 
-    console.log(currency.value)
+    switch (currency.value) {
+        case "USD":
+            convertCurrency(amount.value, USD, "US$")
+            break
+        case "EUR":
+            convertCurrency(amount.value, EUR, "€")
+            break
+        case "GBP":
+            convertCurrency(amount.value, GBP, "£")
+            break    
+    }
+}
+
+// Função para converter a moeda.
+function convertCurrency(amount, price, symbol) {
+    try {
+        // Aplica a classe que exibe o footer para mostrar o resultado.
+        footer.classList.add("show-result")
+    } catch (error) {
+        // Remove a classe do footer removendo ele da tela.
+        footer.classList.remove("show-result")
+        
+        console.log(error)
+        alert("Não foi possível converter. Tente novamente mais tarde.")
+    }
 }
 
